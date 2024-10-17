@@ -1,0 +1,26 @@
+services:
+  backend:
+    build:
+      context: ./server  
+      dockerfile: Dockerfile 
+    command: sh -c "npm run migration:run && npm start"
+    ports:
+      - '8000:8000'
+    environment:
+      NODE_ENV: production        
+    depends_on:
+      - hotel-management-database
+
+  hotel-management-database:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: onepassword
+      POSTGRES_DB: hotel-management-database
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
