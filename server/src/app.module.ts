@@ -7,9 +7,10 @@ import { GuestsModule } from './guests/guests.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { UserModule } from './user/user.module';
 import { ReservationModule } from './reservation/reservation.module';
+import { ServiceRequestsModule } from './service-requests/service-requests.module';
 
 @Module({
-  imports: [DatabaseModule, AuthModule, UserModule, RoomsModule, GuestsModule, ReservationModule],
+  imports: [DatabaseModule, AuthModule, UserModule, RoomsModule, GuestsModule, ReservationModule, ServiceRequestsModule],
   controllers: [AppController],
   providers: [AppService],
 })

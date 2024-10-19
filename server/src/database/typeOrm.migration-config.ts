@@ -5,6 +5,7 @@ import { User } from '../database/entities/user.entity';
 import { Guest } from './entities/guest.entity';
 import { Reservation } from './entities/reservation.entity';
 import { Room } from './entities/room.entity';
+import { ServiceRequest } from './entities/service-request';
 
 config();
 
@@ -17,7 +18,7 @@ const dataSourceOptions: DataSourceOptions = {
   username: configService.get<string>('DB_USERNAME'),
   password: configService.get<string>('DB_PASSWORD'),
   database: configService.get<string>('DB_NAME'),
-  entities: [User, Room, Guest, Reservation],
+  entities: [User, Room, Guest, Reservation, ServiceRequest],
   migrations: [__dirname + '/migrations/*.ts'],
   synchronize: false
 };
