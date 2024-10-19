@@ -1,11 +1,11 @@
 import { IsEmail, IsEnum, IsNotEmpty, IsString, MinLength } from 'class-validator';
-
-export enum UserRole {
+enum UserRole {
   ADMIN = 'admin',
   RECEPTIONIST = 'receptionist',
   GUEST = 'guest',
 
 }
+
 
 export class LoginDto {
   @IsNotEmpty()

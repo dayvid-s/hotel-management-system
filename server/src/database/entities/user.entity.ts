@@ -1,4 +1,10 @@
-import { UserRole } from 'src/auth/auth.dto';
+
+enum UserRole {
+  ADMIN = 'admin',
+  RECEPTIONIST = 'receptionist',
+  GUEST = 'guest',
+
+}
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('user')

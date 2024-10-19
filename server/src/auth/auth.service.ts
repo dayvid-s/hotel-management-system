@@ -1,9 +1,9 @@
+import { User } from '@/database/entities/user.entity';
 import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { compareSync as bcryptCompareSync, hashSync as bcryptHashSync } from 'bcrypt';
 import { plainToClass } from 'class-transformer';
-import { User } from 'src/database/entities/user.entity';
 import { Repository } from 'typeorm';
 import { LoginDto, RegisterAdminDto, RegisterGuestDto } from './auth.dto';
 

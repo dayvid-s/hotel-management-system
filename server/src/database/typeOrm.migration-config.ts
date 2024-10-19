@@ -1,7 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { User } from './entities/user.entity';
+import { User } from '../database/entities/user.entity';
 
 config();
 
