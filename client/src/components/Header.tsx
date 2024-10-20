@@ -1,24 +1,26 @@
 "use client"
 
 import { useAppSelector } from "@/utils/useSelectorHook";
-import { Avatar, Box, Button, Flex, Heading, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
+import { Avatar, Box, Button, Flex, Heading, Link, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
 import { BiChevronDown } from "react-icons/bi";
 export function Header() {
-  const userName = useAppSelector((state) => state.auth.user?.name);
+  const user = useAppSelector((state) => state.auth.user);
 
   return (
     <div>
       <Box bg="teal.500" p={6} color="white">
         <Flex justify="space-between" align="center">
-          <Heading as="h1" size="lg">Hotel System</Heading>
+          <Link href={user?.role === "guest" ? "/guest/dashboard" : "/admin/dashboard"}>
+            <Heading as="h1" size="lg">Hotel System</Heading>
+          </Link>
 
           <Menu>
             <MenuButton as={Button} rightIcon={<BiChevronDown />} variant="outline" colorScheme="whiteAlpha">
               <Flex alignItems="center">
-                {userName ? (
+                {user?.name ? (
                   <>
-                    <Avatar size="sm" name={userName} />
-                    <Text ml={2}>{userName}</Text>
+                    <Avatar size="sm" name={user?.name} />
+                    <Text ml={2}>{user?.name}</Text>
                   </>
                 ) : (
                   <Text ml={2}>Carregando...</Text>

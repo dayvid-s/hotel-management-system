@@ -10,6 +10,8 @@ services:
     depends_on:
       - backend
     command: npm run dev  
+    volumes:
+      - ./client:/app 
       
   backend:
     build:
@@ -22,6 +24,8 @@ services:
       - NODE_ENV=production        
     depends_on:
       - hotel-management-database
+    volumes:
+    - ./server:/app 
 
   hotel-management-database:
     image: postgres:latest
