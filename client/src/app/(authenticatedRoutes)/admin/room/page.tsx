@@ -1,5 +1,5 @@
 "use client"
-import { RoomForm, RoomFormData, RoomList } from '@/components/Room/RoomForms';
+import { RoomForm, RoomFormData, RoomList } from '@/components/RoomForms';
 import { createRoom, fetchRooms, updateRoom } from '@/features/roomSlice';
 import { AppDispatch } from '@/store';
 import { useAppSelector } from '@/utils/useSelectorHook';
