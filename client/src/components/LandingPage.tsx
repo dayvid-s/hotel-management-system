@@ -1,3 +1,4 @@
+"use client"
 import {
   Box,
   Button,
@@ -9,8 +10,14 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
+import { useRouter } from "next/navigation";
+
 
 export function LandingPage() {
+  const router = useRouter();
+  function handleWithNavigation(page: string) {
+    router.push(`/${page}`);
+  }
   return (
     <Box as="section" py={12} bg="blue.50">
       <Container maxW="7xl" textAlign="center">
@@ -29,6 +36,7 @@ export function LandingPage() {
         <Flex justify="center" mt={6} mb={12}>
           <Stack direction={{ base: 'column', sm: 'row' }} spacing={6}>
             <Button
+              onClick={() => handleWithNavigation("LoginAdmin")}
               colorScheme="teal"
               variant="solid"
               size="lg"
