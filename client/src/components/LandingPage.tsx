@@ -36,7 +36,7 @@ export function LandingPage() {
         <Flex justify="center" mt={6} mb={12}>
           <Stack direction={{ base: 'column', sm: 'row' }} spacing={6}>
             <Button
-              onClick={() => handleWithNavigation("LoginAdmin")}
+              onClick={() => handleWithNavigation("loginAdmin")}
               colorScheme="teal"
               variant="solid"
               size="lg"
@@ -44,7 +44,9 @@ export function LandingPage() {
             >
               Entrar como Administrador
             </Button>
-            <Button colorScheme="teal" variant="outline" size="lg">
+            <Button
+              onClick={() => handleWithNavigation("loginGuest")}
+              colorScheme="teal" variant="outline" size="lg">
               Entrar como Hóspede
             </Button>
           </Stack>

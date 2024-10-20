@@ -24,18 +24,18 @@ export default function Page() {
   const toast = useToast();
 
   const { register, handleSubmit, formState: { errors } } = useForm<{
-    email: string;
+    cpf: string;
     password: string;
   }>();
 
-  async function handleLogin(data: { email: string; password: string }) {
-    const { email, password } = data;
-    const resultAction = await dispatch(signInAsync({ identifier: email, password }));
+  async function handleLogin(data: { cpf: string; password: string }) {
+    const { cpf, password } = data;
+    const resultAction = await dispatch(signInAsync({ identifier: cpf, password }));
 
     if (signInAsync.fulfilled.match(resultAction)) {
       router.push('/admin/dashboard');
     } else {
-      const errorMessage = 'Senha ou email incorretos.';
+      const errorMessage = 'Senha ou CPF incorretos.';
       toast({
         position: 'top',
         title: "Erro ao fazer login",
@@ -55,26 +55,26 @@ export default function Page() {
             Login
           </Heading>
           <Text fontSize="lg" color="gray.600">
-            Por favor, insira suas credenciais para acessar o painel administrativo.
+            Por favor, insira suas credenciais para acessar as informações do seu quarto, solicitar serviços, etc...
           </Text>
         </VStack>
 
         <Box bg="white" p={8} borderRadius="lg" shadow="md">
           <form onSubmit={handleSubmit(handleLogin)}>
-            <FormControl id="email" mb={6} isInvalid={!!errors.email}>
-              <FormLabel>Email</FormLabel>
+            <FormControl id="cpf" mb={6} isInvalid={!!errors.cpf}>
+              <FormLabel>CPF</FormLabel>
               <Input
-                type="email"
-                placeholder="admin@example.com"
-                {...register("email", {
-                  required: "Email é obrigatório",
+                type="text"
+                placeholder="123.456.789-00"
+                {...register("cpf", {
+                  required: "CPF é obrigatório",
                   pattern: {
-                    value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
-                    message: "Email inválido"
+                    value: /^(?:\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11})$/,
+                    message: "CPF inválido. Use o formato: 123.456.789-00 ou 12345678900"
                   }
                 })}
               />
-              {errors.email && <Text color="red.500">{errors.email.message}</Text>}
+              {errors.cpf && <Text color="red.500">{errors.cpf.message}</Text>}
             </FormControl>
 
             <FormControl id="password" mb={6} isInvalid={!!errors.password}>
