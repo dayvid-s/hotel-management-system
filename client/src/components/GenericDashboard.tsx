@@ -43,7 +43,7 @@ export default function GenericDashboard({ links, pageName }: GenericDashboardPr
               >
 
                 {link.icon}
-                <Text color="white" mt={2}>{link.label}</Text>
+                <Text color="white" fontWeight={600} mt={2}>{link.label}</Text>
               </Box>
             </Link>
           ))}
