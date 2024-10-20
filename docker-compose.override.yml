@@ -1,7 +1,0 @@
-services:
-  frontend:
-    environment:
-      - NODE_ENV=development
-    volumes:
-      - ./client:/app 
-    command: npm run dev 
