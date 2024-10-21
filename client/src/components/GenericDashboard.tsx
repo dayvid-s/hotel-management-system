@@ -51,7 +51,7 @@ export default function GenericDashboard({ links, pageName }: GenericDashboardPr
       </Box>
 
       <Box mt={10}>
-        <Text>Informações gerais</Text>
+        <Text fontSize={"3xl"} fontWeight={600}>Indicadores de Resultado</Text>
       </Box>
     </Box>
   );

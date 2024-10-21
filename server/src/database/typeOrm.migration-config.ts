@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { User } from '../database/entities/user.entity';
 import { Guest } from './entities/guest.entity';
+import { Log } from './entities/log.entity';
 import { Reservation } from './entities/reservation.entity';
 import { Room } from './entities/room.entity';
 import { ServiceRequest } from './entities/service-request';
@@ -18,7 +19,7 @@ const dataSourceOptions: DataSourceOptions = {
   username: configService.get<string>('DB_USERNAME'),
   password: configService.get<string>('DB_PASSWORD'),
   database: configService.get<string>('DB_NAME'),
-  entities: [User, Room, Guest, Reservation, ServiceRequest],
+  entities: [User, Room, Guest, Reservation, ServiceRequest, Log],
   migrations: [__dirname + '/migrations/*.ts'],
   synchronize: false
 };
