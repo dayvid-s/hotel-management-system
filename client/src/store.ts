@@ -3,13 +3,15 @@ import { AuthReducer } from "./features/authSlice";
 import { GuestReducer } from "./features/guestSlice";
 import { LogReducer } from "./features/logSlice";
 import { RoomReducer } from "./features/roomSlice";
+import { ServiceRequestReducer } from "./features/serviceRequestSlice";
 
 export const store = configureStore({
   reducer: {
     auth: AuthReducer,
     room: RoomReducer,
     guest: GuestReducer,
-    log: LogReducer
+    log: LogReducer,
+    serviceRequest: ServiceRequestReducer,
   },
 });
 

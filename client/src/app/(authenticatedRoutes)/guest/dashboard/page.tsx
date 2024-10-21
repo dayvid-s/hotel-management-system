@@ -17,7 +17,7 @@ const links = [
     label: "Vizualizar detalhes do seu quarto",
   },
   {
-    href: "/guest/room",
+    href: "/guest/serviceRequest",
     icon: <GrConfigure color="white" style={{ width: "150px", height: "90px" }} />,
     label: "Solicitar serviços",
   },

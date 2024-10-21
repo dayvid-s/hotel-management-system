@@ -1,7 +1,7 @@
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
 import { Roles } from '@/auth/roles.decorator';
 import { RolesGuard } from '@/auth/roles.guard';
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { CreateServiceRequestDto, UpdateServiceRequestDto } from './service-requests.dto';
 import { ServiceRequestsService } from './service-requests.service';
 
@@ -17,8 +17,11 @@ export class ServiceRequestsController {
   }
 
   @Get()
-  @Roles('admin', 'receptionist')
-  findAll() {
+  @Roles('admin', 'receptionist', 'guest')
+  findAll(@Query('guestId') guestId?: number) {
+    if (guestId) {
+      return this.serviceRequestsService.findByUser(guestId);
+    }
     return this.serviceRequestsService.findAll();
   }
 

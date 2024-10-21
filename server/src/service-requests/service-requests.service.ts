@@ -12,29 +12,27 @@ export class ServiceRequestsService {
     private readonly dataSource: DataSource,
   ) { }
 
-
   async create(createServiceRequestDto: CreateServiceRequestDto): Promise<ServiceRequest> {
     const serviceRequest = this.serviceRequestRepository.create(createServiceRequestDto);
     return this.serviceRequestRepository.save(serviceRequest);
   }
 
-
   async findAll(): Promise<ServiceRequest[]> {
-    const query = `SELECT * FROM service_requests`;
-    return await this.dataSource.query(query);
+    return this.serviceRequestRepository.find();
   }
 
   async findOne(id: number): Promise<ServiceRequest> {
-    const query = `SELECT * FROM service_requests WHERE id = $1`;
-    const result = await this.dataSource.query(query, [id]);
+    const serviceRequest = await this.serviceRequestRepository
+      .createQueryBuilder('serviceRequest')
+      .where('serviceRequest.id = :id', { id })
+      .getOne();
 
-    if (result.length === 0) {
+    if (!serviceRequest) {
       throw new NotFoundException(`Service Request #${id} not found`);
     }
 
-    return result[0];
+    return serviceRequest;
   }
-
 
   async update(id: number, updateServiceRequestDto: UpdateServiceRequestDto): Promise<ServiceRequest> {
     const serviceRequest = await this.findOne(id);
@@ -42,9 +40,18 @@ export class ServiceRequestsService {
     return this.serviceRequestRepository.save(serviceRequest);
   }
 
-
   async remove(id: number): Promise<void> {
     const serviceRequest = await this.findOne(id);
     await this.serviceRequestRepository.remove(serviceRequest);
+  }
+
+  async findByUser(guestId: number): Promise<ServiceRequest[]> {
+    const requests = await this.serviceRequestRepository
+      .createQueryBuilder('serviceRequest')
+      .leftJoinAndSelect('serviceRequest.guest', 'guest')
+      .where('guest.id = :guestId', { guestId })
+      .getMany();
+
+    return requests;
   }
 }

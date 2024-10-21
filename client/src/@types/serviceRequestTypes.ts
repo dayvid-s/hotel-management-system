@@ -1,9 +1,9 @@
-import { Guest } from "./guestTypes";
 
 export interface ServiceRequest {
   id: number;
+  guestId: number;
   description: string;
-  status: string;
-  guest: Guest;
-  guestId?: number;
+  status?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
