@@ -1,8 +1,5 @@
-import { fetchRooms } from '@/features/roomSlice';
-import { dispatch } from '@/store';
 import { useAppSelector } from '@/utils/useSelectorHook';
 import { Box, Button, FormControl, FormLabel, Heading, Input, Select, VStack } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 export type GuestFormData = {
@@ -85,16 +82,14 @@ interface GuestItemProps {
   onEdit: (guest: GuestFormData) => void;
 }
 
-export const GuestItem: React.FC<GuestItemProps> = ({ guest, onEdit }) => {
+interface GuestItemProps {
+  guest: GuestFormData;
+  onEdit: (guest: GuestFormData) => void;
+}
 
-  const [room, setRoom] = useState<{ id: number; number: string } | null>(null);
-  useEffect(() => {
-    dispatch(fetchRooms()).then((result) => {
-      const rooms = result.payload;
-      const foundRoom = rooms.find((r: { id: number }) => r.id === guest.roomId);
-      setRoom(foundRoom || null);
-    });
-  }, [guest.roomId]);
+export const GuestItem: React.FC<GuestItemProps> = ({ guest, onEdit }) => {
+  const rooms = useAppSelector((state) => state.room.rooms);
+  const foundRoom = rooms.find((r) => r.id === guest.roomId);
 
   return (
     <Box key={guest.id} borderWidth={1} borderRadius="md" p={4}>
@@ -103,12 +98,10 @@ export const GuestItem: React.FC<GuestItemProps> = ({ guest, onEdit }) => {
         <Button colorScheme="blue" onClick={() => onEdit(guest)}>Editar</Button>
       </Box>
       <p>CPF: {guest.cpf}</p>
-      <p>Quarto: {guest ? `Quarto ${room?.number}` : 'Não atribuído'}</p>
+      <p>Quarto: {foundRoom ? `Quarto ${foundRoom.number}` : 'Não atribuído'}</p>
     </Box>
   );
 };
-
-
 interface GuestListProps {
   guests: GuestFormData[];
   password?: string;

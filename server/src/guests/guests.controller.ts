@@ -10,7 +10,7 @@ export class GuestsController {
   constructor(private readonly guestService: GuestsService) { }
 
   @Post()
-  @Roles('admin', 'receptionist', 'guest')
+  @Roles('admin', 'receptionist',)
   create(@Body() createGuestDto: CreateGuestDto) {
     return this.guestService.create(createGuestDto);
   }

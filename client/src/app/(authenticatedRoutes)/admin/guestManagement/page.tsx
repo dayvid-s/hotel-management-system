@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { GuestForm, GuestFormData, GuestList } from '@/components/GuestForms';
 import { createGuest, fetchGuests, updateGuest } from '@/features/guestSlice';
 import { fetchRooms } from '@/features/roomSlice';
@@ -12,10 +12,6 @@ export default function GuestsPage() {
   const toast = useToast();
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-    dispatch(fetchRooms());
-  }, [dispatch]);
-
   const createDisclosure = useDisclosure();
   const editDisclosure = useDisclosure();
 
@@ -23,7 +19,13 @@ export default function GuestsPage() {
   const [selectedGuest, setSelectedGuest] = useState<GuestFormData | undefined>(undefined);
 
   useEffect(() => {
-    dispatch(fetchGuests());
+    const fetchData = async () => {
+      await Promise.all([
+        dispatch(fetchRooms()),
+        dispatch(fetchGuests())
+      ]);
+    };
+    fetchData();
   }, [dispatch]);
 
   const handleEditOpen = (guest: GuestFormData) => {
@@ -38,7 +40,6 @@ export default function GuestsPage() {
       password: data.password,
       roomId: data.roomId
     };
-    console.log(newGuest)
 
     try {
       if (selectedGuest?.id !== undefined) {
@@ -56,13 +57,14 @@ export default function GuestsPage() {
       console.error(error);
       toast({ title: errorMessage, status: 'error', duration: 5000, isClosable: true });
     }
+    window.location.reload();
+
   };
 
   return (
     <Box p={5}>
       <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" mb={5}>
         <Heading>Listagem de Hóspedes</Heading>
-
         <Button colorScheme="teal" onClick={createDisclosure.onOpen} isLoading={loading}>
           Criar Novo Hóspede
         </Button>
