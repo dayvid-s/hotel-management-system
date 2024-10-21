@@ -1,4 +1,6 @@
 import GenericDashboard from '@/components/GenericDashboard';
+import { IndicatorOfResult } from '@/components/IndicatorOfResult';
+import { Box, Text } from '@chakra-ui/react';
 import { FaFile, FaUsers } from "react-icons/fa";
 import { FaUserPen } from "react-icons/fa6";
 import { SiPowerautomate } from "react-icons/si";
@@ -33,5 +35,15 @@ const links = [
 ];
 
 export default function Page() {
-  return <GenericDashboard links={links} pageName="Dashboard" />;
+  return (
+    <>
+      <GenericDashboard links={links} pageName="Dashboard" />
+      <Box p={10} mt={10}>
+        <Text fontSize={"3xl"} fontWeight={600}>Indicadores de Resultado</Text>
+        <IndicatorOfResult />
+      </Box>
+    </>
+
+  );
+
 }

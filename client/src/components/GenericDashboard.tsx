@@ -50,9 +50,6 @@ export default function GenericDashboard({ links, pageName }: GenericDashboardPr
         </Flex>
       </Box>
 
-      <Box mt={10}>
-        <Text fontSize={"3xl"} fontWeight={600}>Indicadores de Resultado</Text>
-      </Box>
     </Box>
   );
 }
