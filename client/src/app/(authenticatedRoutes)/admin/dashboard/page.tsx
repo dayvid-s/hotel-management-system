@@ -1,8 +1,9 @@
 import GenericDashboard from '@/components/GenericDashboard';
 import { IndicatorOfResult } from '@/components/IndicatorOfResult';
 import { Box, Text } from '@chakra-ui/react';
-import { FaFile, FaUsers } from "react-icons/fa";
-import { FaUserPen } from "react-icons/fa6";
+import { AiOutlineSchedule } from 'react-icons/ai';
+import { FaUsers } from "react-icons/fa";
+import { RiHotelLine } from 'react-icons/ri';
 import { SiPowerautomate } from "react-icons/si";
 
 
@@ -14,7 +15,7 @@ const links = [
   },
   {
     href: "/admin/room",
-    icon: <FaFile color="white" style={{ width: "150px", height: "90px" }} />,
+    icon: <RiHotelLine color="white" style={{ width: "150px", height: "90px" }} />,
     label: "Cadastro e Gerenciamento de Quartos",
   },
   {
@@ -24,7 +25,7 @@ const links = [
   },
   {
     href: "/home",
-    icon: <FaUserPen color="white" style={{ width: "150px", height: "90px" }} />,
+    icon: <AiOutlineSchedule color="white" style={{ width: "150px", height: "90px" }} />,
     label: "Gerenciamento de reservas",
   },
   // {

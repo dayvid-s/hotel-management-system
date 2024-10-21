@@ -73,8 +73,8 @@ export const authSlice = createSlice({
         state.token = action.payload.token;
         if (state.token) {
           if (state.token) {
-            Cookies.set("auth_token", state.token, { expires: 2 });
-            Cookies.set("auth_user", JSON.stringify(state.user), { expires: 2 });
+            Cookies.set("auth_token", state.token, { expires: 1 / 40 });
+            Cookies.set("auth_user", JSON.stringify(state.user), { expires: 1 / 40 });
           }
           api.defaults.headers.common["Authorization"] = `Bearer ${state.token}`;
         }
