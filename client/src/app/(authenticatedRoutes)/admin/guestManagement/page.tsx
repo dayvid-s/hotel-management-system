@@ -57,7 +57,7 @@ export default function GuestsPage() {
       console.error(error);
       toast({ title: errorMessage, status: 'error', duration: 5000, isClosable: true });
     }
-    window.location.reload();
+    // window.location.reload();
 
   };
 

@@ -6,7 +6,7 @@ import { SiPowerautomate } from "react-icons/si";
 
 const links = [
   {
-    href: "/logs",
+    href: "/admin/log",
     icon: <SiPowerautomate color="white" style={{ width: "150px", height: "90px" }} />,
     label: "Histórico de Atividades e Logs",
   },
