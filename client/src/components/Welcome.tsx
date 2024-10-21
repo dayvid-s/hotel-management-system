@@ -1,5 +1,6 @@
 import { useAppSelector } from "@/utils/useSelectorHook";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 interface WelcomeProps {
   pageName: string;
@@ -7,14 +8,18 @@ interface WelcomeProps {
 
 export function Welcome({ pageName }: WelcomeProps) {
   const userName = useAppSelector((state) => state.auth.user?.name);
-  const dateOfToday = new Date().toLocaleDateString('pt-BR', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  const [dateOfToday, setDateOfToday] = useState('');
 
-  const dateCapitalized = dateOfToday.charAt(0).toUpperCase() + dateOfToday.slice(1).replace('.', '');
+  useEffect(() => {
+    const date = new Date().toLocaleDateString('pt-BR', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+    const dateCapitalized = date.charAt(0).toUpperCase() + date.slice(1).replace('.', '');
+    setDateOfToday(dateCapitalized);
+  }, []);
 
   return (
     <Box width="full" p={2}>
@@ -25,7 +30,7 @@ export function Welcome({ pageName }: WelcomeProps) {
           </Heading>
         </Box>
         <Flex alignItems="center" justifyContent="flex-end" ml="auto" mr={5}>
-          <Text fontWeight="semibold" color="gray.600">{dateCapitalized}</Text>
+          <Text fontWeight="semibold" color="gray.600">{dateOfToday}</Text>
         </Flex>
       </Flex>
 

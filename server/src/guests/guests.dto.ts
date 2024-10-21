@@ -16,6 +16,9 @@ export class CreateGuestDto {
   @IsString()
   @IsNotEmpty()
   password: string;
+
+  @IsOptional()
+  roomId: number;
 }
 
 export class UpdateGuestDto {
@@ -28,10 +31,9 @@ export class UpdateGuestDto {
   cpf?: string;
 
   @IsOptional()
-  @IsEmail()
-  email?: string;
-
-  @IsOptional()
   @IsString()
   password?: string;
+
+  @IsOptional()
+  roomId: number;
 }

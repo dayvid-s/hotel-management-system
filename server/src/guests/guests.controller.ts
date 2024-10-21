@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
-import { RolesGuard } from '../auth/roles.guard';
 import { CreateGuestDto, UpdateGuestDto } from './guests.dto';
 import { GuestsService } from './guests.service';
 
@@ -11,7 +10,6 @@ export class GuestsController {
   constructor(private readonly guestService: GuestsService) { }
 
   @Post()
-  @UseGuards(RolesGuard)
   @Roles('admin', 'receptionist', 'guest')
   create(@Body() createGuestDto: CreateGuestDto) {
     return this.guestService.create(createGuestDto);

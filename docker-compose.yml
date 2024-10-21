@@ -17,7 +17,7 @@ services:
     build:
       context: ./server  
       dockerfile: Dockerfile 
-    command: sh -c "npm run migration:run && npm start"
+    command: sh -c "npm run build && npm run migration:run && npm start"
     ports:
       - '8000:8000'
     environment:

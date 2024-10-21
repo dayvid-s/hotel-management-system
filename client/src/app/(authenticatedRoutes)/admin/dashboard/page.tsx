@@ -16,7 +16,7 @@ const links = [
     label: "Cadastro e Gerenciamento de Quartos",
   },
   {
-    href: "/automationUsers",
+    href: "/admin/guestManagement",
     icon: <FaUsers color="white" style={{ width: "150px", height: "90px" }} />,
     label: "Gerenciamento de hóspedes",
   },

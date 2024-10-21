@@ -5,8 +5,9 @@ export interface Guest {
   id: number;
   name: string;
   cpf: string;
+  password: string;
   roomId?: number;
   requests?: string;
-  reservations: Reservation[];
-  serviceRequests: ServiceRequest[];
+  reservations?: Reservation[];
+  serviceRequests?: ServiceRequest[];
 }
