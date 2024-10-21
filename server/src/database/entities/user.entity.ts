@@ -1,5 +1,5 @@
 
-enum UserRole {
+export enum UserRole {
   ADMIN = 'admin',
   RECEPTIONIST = 'receptionist',
   GUEST = 'guest',
@@ -26,6 +26,9 @@ export class User {
 
   @Column({ type: 'enum', enum: UserRole })
   role: UserRole;
+
+  @Column({ nullable: true })
+  roomId: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

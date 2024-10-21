@@ -21,6 +21,12 @@ export class Room {
   @Column({ default: false })
   isReserved: boolean;
 
+  @Column({ type: 'timestamp', nullable: true })
+  checkIn?: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  checkOut?: Date;
+
   @OneToMany(() => Reservation, (reservation) => reservation.room)
   reservations: Reservation[];
 }

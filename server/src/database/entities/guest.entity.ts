@@ -14,6 +14,9 @@ export class Guest {
   cpf: string;
 
   @Column({ nullable: true })
+  email?: string;
+
+  @Column({ nullable: true })
   roomId: number;
 
   @Column({ nullable: true })

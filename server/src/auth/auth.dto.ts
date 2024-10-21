@@ -1,4 +1,4 @@
-import { IsEmail, IsEnum, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
 enum UserRole {
   ADMIN = 'admin',
   RECEPTIONIST = 'receptionist',
@@ -27,7 +27,7 @@ export class RegisterGuestDto {
   cpf: string;
 
   @IsEmail()
-  @IsNotEmpty()
+  @IsOptional()
   email: string;
 
   @IsNotEmpty()
@@ -37,6 +37,10 @@ export class RegisterGuestDto {
   @IsEnum(UserRole)
   @IsNotEmpty()
   role: UserRole;
+
+  @IsOptional()
+  roomId: number;
+
 }
 
 

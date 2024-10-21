@@ -1,3 +1,4 @@
+import { AuthModule } from '@/auth/auth.module';
 import { Guest } from '@/database/entities/guest.entity';
 import { LogsModule } from '@/logs/logs.module';
 import { Module } from '@nestjs/common';
@@ -8,7 +9,8 @@ import { GuestsService } from './guests.service';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Guest]),
-    LogsModule
+    LogsModule,
+    AuthModule
   ],
   providers: [GuestsService],
   controllers: [GuestsController]

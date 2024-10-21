@@ -30,7 +30,7 @@ export class RoomsController {
   }
 
   @Patch(':id')
-  @Roles('admin', 'receptionist')
+  @Roles('admin', 'receptionist', "guest")
   update(@Param('id') id: number, @Body() updateRoomDto: UpdateRoomDto, @Req() req) {
     const user = req.user;
     return this.roomsService.update(id, updateRoomDto, user.username);

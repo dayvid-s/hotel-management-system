@@ -31,5 +31,5 @@ export class UpdateGuestDto {
   password?: string;
 
   @IsOptional()
-  roomId: number;
+  roomId?: number;
 }

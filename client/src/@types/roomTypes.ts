@@ -8,5 +8,6 @@ export interface Room {
   price: number;
   isReserved?: boolean;
   reservations?: Reservation[] | null;
+  checkIn?: Date;
+  checkOut?: Date;
 }
-

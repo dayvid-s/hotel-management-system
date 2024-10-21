@@ -4,12 +4,14 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 interface RoomsState {
   rooms: Room[];
+  roomDetails: null | Room;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: RoomsState = {
   rooms: [],
+  roomDetails: null,
   loading: false,
   error: null,
 };
@@ -25,6 +27,12 @@ export const fetchRooms = createAsyncThunk('rooms/fetchRooms', async () => {
   const response = await api.get('/rooms');
   return response.data;
 });
+
+export const fetchRoomDetails = createAsyncThunk('rooms/fetchRoomDetails', async (roomId: number) => {
+  const response = await api.get(`/rooms/${roomId}`);
+  return response.data;
+});
+
 export const createRoom = createAsyncThunk<Room, NewRoom>(
   'rooms/createRoom',
   async (newRoom: NewRoom) => {
@@ -77,6 +85,18 @@ const roomsSlice = createSlice({
       })
       .addCase(deleteRoom.fulfilled, (state, action) => {
         state.rooms = state.rooms.filter((room) => room.id !== action.payload);
+      })
+      .addCase(fetchRoomDetails.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchRoomDetails.fulfilled, (state, action) => {
+        state.roomDetails = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchRoomDetails.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Erro ao buscar os detalhes do quarto';
       });
   },
 });

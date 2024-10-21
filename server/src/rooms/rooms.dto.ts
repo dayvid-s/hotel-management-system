@@ -15,6 +15,12 @@ export class CreateRoomDto {
 
   @IsDecimal()
   price: number;
+
+  @IsOptional()
+  checkIn?: Date;
+
+  @IsOptional()
+  checkOut?: Date;
 }
 
 export class UpdateRoomDto {
@@ -37,4 +43,10 @@ export class UpdateRoomDto {
   @IsOptional()
   @IsBoolean()
   isReserved?: boolean;
+
+  @IsOptional()
+  checkIn?: Date;
+
+  @IsOptional()
+  checkOut?: Date;
 }

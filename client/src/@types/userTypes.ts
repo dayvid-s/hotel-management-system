@@ -9,4 +9,5 @@ export interface UserType {
   role: roles;
   createdAt: Date;
   updatedAt: Date;
+  roomId?: number;
 }

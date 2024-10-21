@@ -1,5 +1,5 @@
 import { User } from '@/database/entities/user.entity';
-import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { compareSync as bcryptCompareSync, hashSync as bcryptHashSync } from 'bcrypt';
@@ -37,6 +37,15 @@ export class AuthService {
     return newUser;
   }
 
+  async updateUserByCpf(cpf: string, updatedData: Partial<User>): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { cpf } });
+    if (!user) {
+      throw new NotFoundException(`Usuário com CPF ${cpf} não encontrado.`);
+    }
+    Object.assign(user, updatedData);
+    return this.userRepository.save(user);
+  }
+
   async registerAdmin(registerDto: RegisterAdminDto): Promise<User> {
     const adminDto = plainToClass(RegisterAdminDto, registerDto);
 
@@ -57,6 +66,7 @@ export class AuthService {
 
     return newUser;
   }
+
   async login(loginDto: LoginDto): Promise<{ user: any, token: string }> {
     const { identifier, password } = loginDto;
 
