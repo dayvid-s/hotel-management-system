@@ -38,7 +38,7 @@ export class RegisterGuestDto {
   @IsNotEmpty()
   role: UserRole;
 
-  @IsOptional()
+  // @IsOptional()
   roomId: number;
 
 }

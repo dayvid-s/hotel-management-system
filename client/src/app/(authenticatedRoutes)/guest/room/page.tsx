@@ -17,8 +17,8 @@ export default function RoomDetails() {
   const toast = useToast();
 
   useEffect(() => {
-    if (user) {
-      dispatch(fetchRoomDetails(user.id))
+    if (user && user?.roomId != undefined) {
+      dispatch(fetchRoomDetails(user.roomId))
         .unwrap()
         .catch(() => {
           toast({ title: 'Erro ao carregar os detalhes do quarto.', status: 'error', duration: 5000, isClosable: true });
@@ -80,7 +80,9 @@ export default function RoomDetails() {
         {room.checkIn && !room.checkOut && (
           <Button colorScheme="red" onClick={handleCheckout}>Fazer Checkout</Button>
         )}
-        <Button disabled={room?.checkOut ? true : false} colorScheme="blue" onClick={() => router.push('/guest/serviceRequest')}>Solicitar Serviço</Button>
+        <Button disabled={room?.checkOut ? true : false} colorScheme="blue"
+        // onClick={() => router.push('/guest/serviceRequest')}
+        >Solicitar Serviço</Button>
         <Button colorScheme="teal" onClick={() => router.push('/guest/dashboard')}>Voltar ao Dashboard</Button>
       </Flex>
     </Box>

@@ -65,7 +65,11 @@ export default function Page() {
             <RoomForm onSubmit={handleFormSubmit} />
           </ModalBody>
           <ModalFooter>
-            <Button onClick={createDisclosure.onClose}>Fechar</Button>
+            <Button onClick={() => {
+              setSelectedRoom(undefined);
+              createDisclosure.onClose();
+            }}>Fechar</Button>
+
           </ModalFooter>
         </ModalContent>
       </Modal>

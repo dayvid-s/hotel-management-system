@@ -18,7 +18,7 @@ export class AuthService {
   async registerGuest(registerDto: RegisterGuestDto): Promise<User> {
     const guestDto = plainToClass(RegisterGuestDto, registerDto);
 
-    const { name, cpf, email, password, role } = guestDto;
+    const { name, cpf, email, password, role, roomId } = guestDto;
 
     const existingUser = await this.userRepository.findOne({ where: { cpf } });
     if (existingUser) {
@@ -31,6 +31,7 @@ export class AuthService {
     newUser.email = email;
     newUser.password = bcryptHashSync(password, 10);
     newUser.role = role;
+    newUser.roomId = roomId
 
     await this.userRepository.save(newUser);
 

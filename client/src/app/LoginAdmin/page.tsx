@@ -14,6 +14,7 @@ import {
   VStack,
   useToast
 } from '@chakra-ui/react';
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -29,6 +30,8 @@ export default function Page() {
   }>();
 
   async function handleLogin(data: { email: string; password: string }) {
+    Cookies.remove("auth_user");
+    Cookies.remove("auth_token");
     const { email, password } = data;
     const resultAction = await dispatch(signInAsync({ identifier: email, password }));
 

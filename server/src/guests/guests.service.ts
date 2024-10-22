@@ -24,10 +24,10 @@ export class GuestsService {
     const registerDto: RegisterGuestDto = {
       name: savedGuest.name,
       cpf: savedGuest.cpf,
-      email: "",
+      email: guest.email,
       password: createGuestDto.password,
       role: UserRole.GUEST,
-      roomId: null
+      roomId: guest.roomId
     };
 
     try {
@@ -66,6 +66,7 @@ export class GuestsService {
       await this.authService.updateUserByCpf(guest.cpf, {
         name: updateGuestDto.name,
         password: updateGuestDto.password
+
       });
     }
     const updatedGuest = await this.guestRepository.save(guest);
