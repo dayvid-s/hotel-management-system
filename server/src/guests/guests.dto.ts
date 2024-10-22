@@ -17,7 +17,7 @@ export class CreateGuestDto {
   @IsNotEmpty()
   password: string;
 
-  // @IsOptional()
+  @IsNotEmpty()
   roomId: number;
 }
 
@@ -38,6 +38,6 @@ export class UpdateGuestDto {
   @IsString()
   password?: string;
 
-  // @IsOptional()
+  @IsNotEmpty()
   roomId?: number;
 }

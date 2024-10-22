@@ -12,34 +12,34 @@ export class ServiceRequestsController {
 
   @Post()
   @Roles('admin', 'guest')
-  create(@Body() createServiceRequestDto: CreateServiceRequestDto) {
+  async create(@Body() createServiceRequestDto: CreateServiceRequestDto) {
     return this.serviceRequestsService.create(createServiceRequestDto);
   }
 
   @Get()
   @Roles('admin', 'receptionist', 'guest')
-  findAll(@Query('guestId') guestId?: number) {
-    if (guestId) {
-      return this.serviceRequestsService.findByUser(guestId);
+  async findAll(@Query('guestCpf') guestCpf?: string) {
+    if (guestCpf) {
+      return this.serviceRequestsService.findByGuestCpf(guestCpf);
     }
     return this.serviceRequestsService.findAll();
   }
 
   @Get(':id')
   @Roles('admin', 'receptionist', 'guest')
-  findOne(@Param('id') id: number) {
+  async findOne(@Param('id') id: number) {
     return this.serviceRequestsService.findOne(id);
   }
 
   @Patch(':id')
   @Roles('admin', 'receptionist')
-  update(@Param('id') id: number, @Body() updateServiceRequestDto: UpdateServiceRequestDto) {
+  async update(@Param('id') id: number, @Body() updateServiceRequestDto: UpdateServiceRequestDto) {
     return this.serviceRequestsService.update(id, updateServiceRequestDto);
   }
 
   @Delete(':id')
   @Roles('admin', 'receptionist')
-  remove(@Param('id') id: number) {
+  async remove(@Param('id') id: number) {
     return this.serviceRequestsService.remove(id);
   }
 }

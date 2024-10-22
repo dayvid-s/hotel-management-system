@@ -31,20 +31,38 @@ export class AuthService {
     newUser.email = email;
     newUser.password = bcryptHashSync(password, 10);
     newUser.role = role;
-    newUser.roomId = roomId
+    newUser.roomId = roomId;
 
     await this.userRepository.save(newUser);
 
     return newUser;
   }
-
   async updateUserByCpf(cpf: string, updatedData: Partial<User>): Promise<User> {
     const user = await this.userRepository.findOne({ where: { cpf } });
     if (!user) {
       throw new NotFoundException(`Usuário com CPF ${cpf} não encontrado.`);
     }
-    Object.assign(user, updatedData);
-    return this.userRepository.save(user);
+    if (updatedData.name) {
+      user.name = updatedData.name;
+    }
+    if (updatedData.email) {
+      user.email = updatedData.email;
+    }
+    if (updatedData.cpf) {
+      user.cpf = updatedData.cpf;
+    }
+    if (updatedData.password) {
+      user.password = bcryptHashSync(updatedData.password, 10);
+    }
+    if (updatedData.role) {
+      user.role = updatedData.role;
+    }
+    if (updatedData.roomId) {
+      user.roomId = updatedData.roomId;
+    }
+
+    const updatedUser = await this.userRepository.save(user);
+    return updatedUser;
   }
 
   async registerAdmin(registerDto: RegisterAdminDto): Promise<User> {

@@ -1,6 +1,7 @@
 "use client";
 import { fetchGuests } from '@/features/guestSlice';
 import { fetchRooms } from '@/features/roomSlice';
+import { fetchServiceRequests } from '@/features/serviceRequestSlice';
 import { AppDispatch } from '@/store';
 import { useAppSelector } from '@/utils/useSelectorHook';
 import { Box, Divider, Heading, SimpleGrid, Stat, StatLabel, StatNumber, useToast } from '@chakra-ui/react';
@@ -11,26 +12,22 @@ import { useDispatch } from 'react-redux';
 
 Chart.register(...registerables);
 
-const serviceRequestsData = [
-  { id: 1, request: 'Toalhas extras', status: 'Em andamento' },
-  { id: 2, request: 'Limpeza do quarto', status: 'Concluído' },
-  { id: 3, request: 'Reparo no ar condicionado', status: 'Em andamento' },
-];
-
 export function IndicatorOfResult() {
   const dispatch = useDispatch<AppDispatch>();
   const toast = useToast();
 
   const rooms = useAppSelector((state) => state.room.rooms);
   const guest = useAppSelector((state) => state.guest.guests);
+  const serviceRequests = useAppSelector((state) => state.serviceRequest.requests);
 
   useEffect(() => {
     const loadData = async () => {
       try {
         await dispatch(fetchRooms()).unwrap();
         await dispatch(fetchGuests()).unwrap();
+        await dispatch(fetchServiceRequests()).unwrap();
       } catch (error) {
-        console.error(error)
+        console.error(error);
         toast({ title: 'Erro ao carregar dados.', status: 'error', duration: 5000, isClosable: true });
       }
     };
@@ -95,10 +92,10 @@ export function IndicatorOfResult() {
       <Box>
         <Heading size="md" mb={4}>Solicitações de Serviços Ativas</Heading>
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-          {serviceRequestsData.map((request) => (
+          {serviceRequests?.map((request) => (
             <Box key={request.id} borderWidth={1} borderRadius="md" p={4}>
-              <Heading size="sm">{request.request}</Heading>
-              <p>Status: {request.status}</p>
+              <Heading size="sm">{request.description}</Heading>
+              <p>Status: {request.status === 'pending' ? "Aguardando Aprovação" : "Em andamento"}</p>
             </Box>
           ))}
         </SimpleGrid>

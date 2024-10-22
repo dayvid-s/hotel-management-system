@@ -8,16 +8,16 @@ RUN npm install
 
 COPY . .
 
-ARG NODE_ENV=development  
-
-RUN if [ "$NODE_ENV" = "production" ]; then npm run build; fi
+RUN npm run build
 
 FROM node:18-alpine
 
 WORKDIR /app
 
-COPY --from=builder /app .
+COPY --from=builder /app . 
 
-ENV NODE_ENV=development  
+ENV NODE_ENV=production
 
 EXPOSE 3000
+
+CMD ["npm", "run", "start"]

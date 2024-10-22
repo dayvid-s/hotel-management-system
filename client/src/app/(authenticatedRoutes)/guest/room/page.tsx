@@ -81,7 +81,7 @@ export default function RoomDetails() {
           <Button colorScheme="red" onClick={handleCheckout}>Fazer Checkout</Button>
         )}
         <Button disabled={room?.checkOut ? true : false} colorScheme="blue"
-        // onClick={() => router.push('/guest/serviceRequest')}
+          onClick={() => router.push('/guest/serviceRequest')}
         >Solicitar Serviço</Button>
         <Button colorScheme="teal" onClick={() => router.push('/guest/dashboard')}>Voltar ao Dashboard</Button>
       </Flex>

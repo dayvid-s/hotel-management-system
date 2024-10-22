@@ -1,3 +1,4 @@
+import { Guest } from '@/database/entities/guest.entity';
 import { ServiceRequest } from '@/database/entities/service-request';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,11 +10,25 @@ export class ServiceRequestsService {
   constructor(
     @InjectRepository(ServiceRequest)
     private readonly serviceRequestRepository: Repository<ServiceRequest>,
+    @InjectRepository(Guest)
+    private readonly guestRepository: Repository<Guest>,
     private readonly dataSource: DataSource,
   ) { }
 
   async create(createServiceRequestDto: CreateServiceRequestDto): Promise<ServiceRequest> {
-    const serviceRequest = this.serviceRequestRepository.create(createServiceRequestDto);
+    const { guestCpf, description, status } = createServiceRequestDto;
+
+    const guest = await this.guestRepository.findOne({ where: { cpf: guestCpf } });
+    if (!guest) {
+      throw new NotFoundException(`Guest with CPF ${guestCpf} not found`);
+    }
+
+    const serviceRequest = this.serviceRequestRepository.create({
+      guestId: guest.id,
+      description,
+      status,
+    });
+
     return this.serviceRequestRepository.save(serviceRequest);
   }
 
@@ -35,7 +50,18 @@ export class ServiceRequestsService {
   }
 
   async update(id: number, updateServiceRequestDto: UpdateServiceRequestDto): Promise<ServiceRequest> {
+    const { guestCpf } = updateServiceRequestDto;
+
     const serviceRequest = await this.findOne(id);
+
+    if (guestCpf) {
+      const guest = await this.guestRepository.findOne({ where: { cpf: guestCpf } });
+      if (!guest) {
+        throw new NotFoundException(`Guest with CPF ${guestCpf} not found`);
+      }
+      serviceRequest.guestId = guest.id;
+    }
+
     Object.assign(serviceRequest, updateServiceRequestDto);
     return this.serviceRequestRepository.save(serviceRequest);
   }
@@ -45,11 +71,16 @@ export class ServiceRequestsService {
     await this.serviceRequestRepository.remove(serviceRequest);
   }
 
-  async findByUser(guestId: number): Promise<ServiceRequest[]> {
+  async findByGuestCpf(guestCpf: string): Promise<ServiceRequest[]> {
+
+    const guest = await this.guestRepository.findOne({ where: { cpf: guestCpf } });
+    if (!guest) {
+      throw new NotFoundException(`Guest with CPF ${guestCpf} not found`);
+    }
     const requests = await this.serviceRequestRepository
       .createQueryBuilder('serviceRequest')
       .leftJoinAndSelect('serviceRequest.guest', 'guest')
-      .where('guest.id = :guestId', { guestId })
+      .where('guest.id = :guestId', { guestId: guest.id })
       .getMany();
 
     return requests;

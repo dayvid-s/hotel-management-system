@@ -33,7 +33,7 @@ export default function Page() {
     const resultAction = await dispatch(signInAsync({ identifier: cpf, password }));
 
     if (signInAsync.fulfilled.match(resultAction)) {
-      router.push('/admin/dashboard');
+      router.push('/guest/dashboard');
     } else {
       const errorMessage = 'Senha ou CPF incorretos.';
       toast({

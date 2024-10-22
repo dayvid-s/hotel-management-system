@@ -17,27 +17,30 @@ export default function ServiceRequests() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const serviceRequests = useAppSelector((state) => state.serviceRequest.requests);
 
-  const userId = useAppSelector((state) => state.auth.user?.id);
+  const userCpf = useAppSelector((state) => state.auth.user?.cpf);
 
   useEffect(() => {
-    if (userId) {
-      dispatch(fetchServiceRequestsByUser(userId)).unwrap().catch((err) => {
+    if (userCpf) {
+      dispatch(fetchServiceRequestsByUser(userCpf)).unwrap().catch((err) => {
         console.error("Erro ao carregar as solicitações de serviço", err);
       });
     }
-  }, [dispatch, userId]);
+  }, [dispatch, userCpf]);
 
   const { register, handleSubmit, reset } = useForm<ServiceRequestFormData>();
 
   const onSubmit: SubmitHandler<ServiceRequestFormData> = async (data) => {
     try {
-      if (!userId) {
-        throw new Error("ID do hóspede não está disponível.");
+      if (!userCpf) {
+        throw new Error("CPF do hóspede não está disponível.");
       }
 
       const newRequest = {
-        ...data,
-        guestId: userId
+        guestCpf: userCpf,
+        newRequest: {
+          description: data.description,
+          guestCpf: userCpf
+        }
       };
 
       await dispatch(createServiceRequest(newRequest)).unwrap();

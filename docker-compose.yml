@@ -6,12 +6,9 @@ services:
     ports:
       - '3000:3000'
     environment:
-      - NODE_ENV=development  
+      - NODE_ENV=production
     depends_on:
       - backend
-    command: npm run dev  
-    volumes:
-      - ./client:/app 
       
   backend:
     build:

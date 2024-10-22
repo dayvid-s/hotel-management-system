@@ -1,9 +1,15 @@
 
-export interface ServiceRequest {
+export interface ServiceRequestInBackend {
   id: number;
   guestId: number;
   description: string;
   status?: string;
-  createdAt?: string;
-  updatedAt?: string;
+}
+
+export interface ServiceRequest {
+  id: number;
+  guestId: number;
+  guestCpf: string;
+  description: string;
+  status?: string;
 }

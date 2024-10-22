@@ -64,13 +64,12 @@ export class GuestsService {
     Object.assign(guest, updateGuestDto);
     if (updateGuestDto.cpf) {
       await this.authService.updateUserByCpf(guest.cpf, {
+        cpf: guest.cpf,
         name: updateGuestDto.name,
         password: updateGuestDto.password
-
       });
     }
     const updatedGuest = await this.guestRepository.save(guest);
-
     await this.logsService.create({
       name: 'Atualização de Hóspede',
       status: 'Sucesso',

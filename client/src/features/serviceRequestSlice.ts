@@ -24,16 +24,22 @@ export const fetchServiceRequests = createAsyncThunk(
 
 export const fetchServiceRequestsByUser = createAsyncThunk(
   'serviceRequests/fetchServiceRequestsByUser',
-  async (guestId: number) => {
-    const response = await api.get<ServiceRequest[]>(`/service-requests?guestId=${guestId}`);
+  async (cpf: string) => {
+    const response = await api.get<ServiceRequest[]>(`/service-requests?cpf=${cpf}`);
     return response.data;
   }
 );
 
 export const createServiceRequest = createAsyncThunk(
   'serviceRequests/createServiceRequest',
-  async (newRequest: Omit<ServiceRequest, 'id' | 'createdAt' | 'updatedAt'>) => {
-    const response = await api.post<ServiceRequest>('/service-requests', newRequest);
+  async ({ guestCpf, newRequest }: { guestCpf: string, newRequest: Omit<ServiceRequest, 'id' | 'createdAt' | 'updatedAt' | 'guestId'> }) => {
+    const guestResponse = await api.get<{ id: number }>(`/guests?cpf=${guestCpf}`);
+    const guestId = guestResponse.data.id;
+    const response = await api.post<ServiceRequest>('/service-requests', {
+      ...newRequest,
+      guestId,
+
+    });
     return response.data;
   }
 );
@@ -41,8 +47,7 @@ export const createServiceRequest = createAsyncThunk(
 const serviceRequestSlice = createSlice({
   name: 'serviceRequests',
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchServiceRequests.pending, (state) => {

@@ -1,9 +1,9 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateServiceRequestDto {
   @IsNotEmpty()
-  @IsNumber()
-  guestId: number;
+  @IsString()
+  guestCpf: string;
 
   @IsNotEmpty()
   @IsString()
@@ -16,8 +16,8 @@ export class CreateServiceRequestDto {
 
 export class UpdateServiceRequestDto {
   @IsOptional()
-  @IsNumber()
-  guestId?: number;
+  @IsString()
+  guestCpf?: string;
 
   @IsOptional()
   @IsString()
