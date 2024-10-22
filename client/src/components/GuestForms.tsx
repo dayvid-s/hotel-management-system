@@ -7,14 +7,15 @@ export type GuestFormData = {
   name: string;
   cpf: string;
   password: string;
+  email: string;
   roomId?: number;
 };
+
 
 interface GuestFormProps {
   initialData?: GuestFormData;
   onSubmit: SubmitHandler<GuestFormData>;
 }
-
 export const GuestForm: React.FC<GuestFormProps> = ({ initialData, onSubmit }) => {
   const { register, handleSubmit, formState: { errors } } = useForm<GuestFormData>({
     defaultValues: initialData,
@@ -46,6 +47,15 @@ export const GuestForm: React.FC<GuestFormProps> = ({ initialData, onSubmit }) =
           />
         </FormControl>
 
+        <FormControl id="email" isRequired isInvalid={!!errors.email}>
+          <FormLabel>Email</FormLabel>
+          <Input
+            type="email"
+            placeholder="Digite o email do hóspede"
+            {...register('email', { required: true })}
+          />
+        </FormControl>
+
         <FormControl id="password" isRequired isInvalid={!!errors.password}>
           <FormLabel>Senha</FormLabel>
           <Input
@@ -73,6 +83,8 @@ export const GuestForm: React.FC<GuestFormProps> = ({ initialData, onSubmit }) =
     </form>
   );
 };
+
+
 interface GuestItemProps {
   guest: GuestFormData;
   onEdit: (guest: GuestFormData) => void;
@@ -86,7 +98,6 @@ interface GuestItemProps {
   guest: GuestFormData;
   onEdit: (guest: GuestFormData) => void;
 }
-
 export const GuestItem: React.FC<GuestItemProps> = ({ guest, onEdit }) => {
   const rooms = useAppSelector((state) => state.room.rooms);
   const foundRoom = rooms.find((r) => r.id === guest.roomId);
@@ -98,10 +109,12 @@ export const GuestItem: React.FC<GuestItemProps> = ({ guest, onEdit }) => {
         <Button colorScheme="blue" onClick={() => onEdit(guest)}>Editar</Button>
       </Box>
       <p>CPF: {guest.cpf}</p>
+      <p>Email: {guest.email}</p> {/* Exibe o email */}
       <p>Quarto: {foundRoom ? `Quarto ${foundRoom.number}` : 'Não atribuído'}</p>
     </Box>
   );
 };
+
 interface GuestListProps {
   guests: GuestFormData[];
   password?: string;
@@ -109,7 +122,6 @@ interface GuestListProps {
   error: string | null;
   onEdit: (guest: GuestFormData) => void;
 }
-
 export const GuestList: React.FC<GuestListProps> = ({ guests, loading, error, onEdit }) => {
   if (loading) return <p>Carregando hóspedes...</p>;
   if (error) return <p>{error}</p>;

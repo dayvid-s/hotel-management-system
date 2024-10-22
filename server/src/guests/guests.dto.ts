@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateGuestDto {
   @IsString()
@@ -8,6 +8,10 @@ export class CreateGuestDto {
   @IsString()
   @IsNotEmpty()
   cpf: string;
+
+  @IsEmail()
+  @IsOptional()
+  email: string;
 
   @IsString()
   @IsNotEmpty()
@@ -25,6 +29,10 @@ export class UpdateGuestDto {
   @IsOptional()
   @IsString()
   cpf?: string;
+
+  @IsEmail()
+  @IsOptional()
+  email: string;
 
   @IsOptional()
   @IsString()

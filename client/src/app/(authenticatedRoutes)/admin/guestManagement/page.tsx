@@ -37,6 +37,7 @@ export default function GuestsPage() {
     const newGuest = {
       name: data.name,
       cpf: data.cpf,
+      email: data.email,
       password: data.password,
       roomId: data.roomId
     };
@@ -58,7 +59,6 @@ export default function GuestsPage() {
       toast({ title: errorMessage, status: 'error', duration: 5000, isClosable: true });
     }
     // window.location.reload();
-
   };
 
   return (

@@ -5,6 +5,7 @@ export interface Guest {
   id: number;
   name: string;
   cpf: string;
+  email: string;
   password: string;
   roomId?: number;
   requests?: string;
