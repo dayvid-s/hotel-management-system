@@ -65,7 +65,7 @@ export class SeedService {
       email: 'carlos.guest@example.com',
       password: 'guest12345',
       role: 'guest',
-      cpf: '12345678910',
+      cpf: '63493703090',
       roomId: null,
     };
 

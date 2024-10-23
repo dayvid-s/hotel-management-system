@@ -27,7 +27,7 @@ PostgreSQL, ambos orquestrados utilizando Docker.
 	•	O frontend estará disponível em http://localhost:3000.
 	•	Faça login como hóspede ou administrador usando essas credenciais:
  Usuário do tipo administrador = user.admin@example.com  |   Senha  = admin12345 <br>
- Usuário do tipo hóspede = carlos.guest@example.com  |  Senha = guest12345
+ Usuário do tipo hóspede = 63493703090  |  Senha = guest12345
 
 Você também pode estar criando hóspedes e fazendo login.
 
