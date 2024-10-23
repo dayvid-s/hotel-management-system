@@ -39,7 +39,7 @@ export default function Page() {
   return (
     <>
       <GenericDashboard links={links} pageName="Dashboard" />
-      <Box p={10} mt={10}>
+      <Box p={10} >
         <Text fontSize={"3xl"} fontWeight={600}>Indicadores de Resultado</Text>
         <IndicatorOfResult />
       </Box>

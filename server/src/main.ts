@@ -1,6 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { SeedService } from './seeds/seed.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -10,6 +11,8 @@ async function bootstrap() {
     credentials: true,
   });
 
+  const seedService = app.get(SeedService);
+  await seedService.runSeed();
 
   app.useGlobalPipes(new ValidationPipe({
     transform: true,
